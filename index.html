@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - Embedded Media</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="css/d3-presentation.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/default.css" id="theme">
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+				<section>
+					<h3>D3.js: An Introduction to Interactive Visualizations on the Web</h3>
+					<h4>Ben Chartoff</h4>
+					<h4>July 23, 2015</h4>
+				</section>
+				<section>
+					<h2>HTML and the DOM</h2>
+				</section>
+
+				<section>
+					<div id = "html1">
+					<div class = "step1"><span>&lt;html&gt;</span></div>
+					<div class = "step2" style = "margin-left: 100px; height:0; opacity:0;"><span>&lt;body&gt;</span></div>
+					<div class = "step3" style = "margin-left: 470px; height:0; opacity:0;"><span>&lt;p&gt;The 1st paragraph&lt;/p&gt;</span></div>
+					<div class = "step3" style = "margin-left: 480px; height:0; opacity:0;"><span>&lt;p&gt;The 2nd paragraph&lt;/p&gt;</span></div>
+					<div class = "step2" style = "margin-left: 100px; height:0; opacity:0;"><span>&lt;/body&gt;</span></div>
+					<div class "step1"><span>&lt;/html&gt;</span></div>
+					</div>
+				</section>
+
+				<section>
+					<p>The 1st paragraph</p>
+					<p>The 2nd paragraph</p>
+				</section>
+				<section>
+					<h2 id = "css1">CSS</h2>
+				</section>
+				<section>
+					<h2>SVG</h2>
+				</section>
+ 				<section>
+					<div id = "svg1">
+					<div style ="margin-left: -600px;">&lt;svg&gt;</div>
+					<div style = "margin-left: -500px;">&lt;g&gt;</div>
+					<div style = "margin-left: 120px;">&lt;circle <span>cx="0"</span> <span>cy ="0"</span> <span>r="10"</span>&gt;&lt;/circle&gt;</div>					
+					<div style = "margin-left: 200px;">&lt;circle <span>cx="100"</span> <span>cy ="100"</span> <span>r="10"</span>&gt;&lt;/circle&gt;</div>
+					<div style = "margin-left: 200px;">&lt;circle <span>cx="400"</span> <span>cy ="200"</span> <span>r="40"</span>&gt;&lt;/circle&gt;</div>
+					<div style = "margin-left: -500px;">&lt;/g&gt;</div>
+					<div style = "margin-left: -600px;">&lt;/svg&gt;</div>
+					</div>
+				</section>
+				<section>
+					<svg width="600" height ="600">
+					<g>
+						<circle cx="0" cy ="0" r="10"></circle>
+						<circle cx="100" cy ="100" r="10"></circle>
+						<circle cx="400" cy ="200" r="40"></circle>
+					</g>
+					</svg>
+				</section>
+				<section style="top:0px !important;">
+					<iframe style = "width:1000px; height: 1000px;" data-src="http://bl.ocks.org/mbostock/raw/3680999/bb2a869ce3f60973cdd8ed3b8ae324fcda3763e5/"></iframe>
+				</section>
+ 				<section>
+					<div style = "margin-left: -180px">&lt;circle <i>class = "large dot"</i> <span>cx="200" cy ="200" r="40"&gt;</span>&lt;/circle&gt;</div>
+					<div style = "margin-left: -200px">&lt;circle <i>class = "small dot"</i> <span>cx="200" cy ="300" r="10"&gt;</span>&lt;/circle&gt;</div>
+					<div style = "margin-left: -200px">&lt;circle <i>id = "topDot"</i> <i>class = "large dot"</i> <span>cx="200" <i>cy ="100"</i> r="40"</span>&gt;<br/>&lt;/circle&gt;</div>
+				</section>
+				<section>
+					<svg width="600" height ="600">
+					<g>
+						<circle class = "large dot" cx="200" cy ="200" r="40"></circle>
+						<circle class = "small dot" cx="200" cy ="300" r="10"></circle>
+						<circle id = "topDot" class = "large dot" cx="200" cy ="100" r="40"></circle>
+					</g>
+					</svg>
+				</section>
+				<section>
+					<h2>D3</h2>
+				</section>
+
+				<section style = "text-align:left;">
+		<span>d3.csv("data/data.csv", function(<i>data</i>){</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;<span>d3.select("#chart1")</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<span>.append("g")</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<span>.selectAll(".dot")</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<span>.data(<i>data</i>)</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<span>.enter()</span><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>.append("circle")</span><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>.attr("class","dot")</span><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>.attr("cx",function(<i>d</i>){</span><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<span>return <i>d</i>.income/30</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	})<br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>.attr("cy", function(<i>d</i>){</span><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<span>return 600-<i>d</i>.lifeExpectancy*4</span><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<span>.attr("r", 2)</span><br>
+		})
+				</section>
+				<section>
+					<svg id = "chart1" width="1200" height ="1200">
+					</svg>
+				</section>
+				<section style = "text-align:left;">
+		<span>d3.select("#chart1")</span><br>
+			<span>.on("click", function(){</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;	<span>d3.selectAll("#chart1&nbsp;&nbsp;.dot")</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<span>.transition()</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<span>.attr("cx",function(<i>d</i>){</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>return (<i>d</i>.year-1900)*7</span><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+				})<br>
+				</section>
+			</div>
+		</div>
+
+		<script src ="js/d3.min.js"></script>
+		<script src="js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+
+		<script>
+			Reveal.initialize({
+				transition: 'linear'
+			});
+
+			d3.select("#html1")
+				.on("click", function(){
+					d3.selectAll(".step2")
+							.on("click", function(){
+								d3.selectAll(".step3")
+									.transition()
+									.style("opacity",1)
+									.style("height", "50px")
+							})
+						.transition()
+						.style("opacity",1)
+						.style("height", "50px")
+				});
+
+			d3.select("#css1")
+				.on("click", function(){
+					d3.select(this)
+						.text("color: #1696d2")
+						.on("click", function(){
+							d3.select(this)
+								.text("font-size: 95pt")
+									.on("click", function(){
+										d3.select(this)
+											.text("margin-top: 500px")
+											.transition()
+											.delay(500)
+											.duration(2000)
+											.style("margin-top", "500px")
+									})
+								.transition()
+								.duration(1000)
+								.style("font-size", "95pt")
+						})
+						.transition()
+						.duration(1000)
+						.style("color", "#1696d2")
+				});
+			// d3.select("#css2")
+			// 	.on("click", function(){
+			// 		d3.select(this)
+			// 			.attr("id", "css3")
+			// 			.text("font-size: 45pt")
+			// 			.transition()
+			// 			.duration(1000)
+			// 			.style("font-size", "45pt")
+			// 	})
+		// d3.csv("data/data.csv", function(data){
+		// 	d3.select("#chart1")
+		// 		.append("g")
+		// 		.selectAll(".dot")
+		// 		.data(data)
+		// 		.enter()
+		// 		.append("circle")
+		// 		.attr("class","dot")
+		// 		.attr("cx",function(d){
+		// 			return d.income/30
+		// 		})
+		// 		.attr("cy", function(d){
+		// 			// return 100
+		// 			return 600-d.lifeExpectancy*4
+		// 		})
+		// 		.attr("r", 2)
+		// })
+		</script>
+
+	</body>
+</html>
